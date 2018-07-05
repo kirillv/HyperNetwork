@@ -1,0 +1,25 @@
+query selectAllUsers {
+  description: "Select all users"
+  statement:
+      SELECT org.pone.network.PoneUser
+}
+
+query selectUserByCredentials {
+  description: "Select user based on his credential"
+  statement:
+      SELECT org.pone.network.PoneUser
+          WHERE ((email==_$mail) AND (userName==_$uname))
+}
+
+query selectAllDevelopers {
+  description: "Select all developers"
+  statement:
+      SELECT org.pone.network.PoneDeveloper
+}
+
+query selectDeveloperByCredentials {
+  description: "Select user based on his credential"
+  statement:
+      SELECT org.pone.network.PoneDeveloper
+          WHERE ((email==_$mail) AND (userName==_$uname))
+}
