@@ -89,6 +89,12 @@ transaction TransferCoin {
   o Double amount
 }
 
+transaction CreateUser {
+  o String email
+  o String userName
+  o String uniqId
+}
+
 event TransactionCompleted {
   o String msg
 }
