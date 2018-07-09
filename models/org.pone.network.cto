@@ -28,10 +28,20 @@ participant PoneDeveloper extends PoneUser {
   
 }
 
+participant PoneGameSeller extends PoneUser {
+}
+
 asset SampleAsset identified by assetId {
   o String assetId
   --> PoneUser owner
   o String value
+}
+
+asset GameAsset identified by gameId {
+  o String gameId
+  --> PoneGameSeller owner
+  o String gameDescription
+  o Double gamePrice
 }
 
 transaction SampleTransaction {
@@ -43,4 +53,42 @@ event SampleEvent {
   --> SampleAsset asset
   o String oldValue
   o String newValue
+}
+
+/*
+* Wallet and coin definition
+*/
+
+enum CoinTransactionType {
+  o SEND
+  o RECEIVE
+  o DEPOSIT
+  o WITHDRAW
+}
+
+asset Wallet identified by walletId {
+  o String walletId
+  o Double amount
+  --> PoneUser owner
+  o CoinTransaction[] transactions optional
+}
+
+transaction DepositCoin {
+  --> Wallet wallet
+  o Double amount
+}
+
+transaction WithdrawCoin {
+  --> Wallet wallet
+  o Double amount
+}
+
+transaction TransferCoin {
+  --> Wallet sender
+  --> Wallet receiver
+  o Double amount
+}
+
+event TransactionCompleted {
+  o String msg
 }
